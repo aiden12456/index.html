@@ -1,0 +1,1080 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Homelessness Among Veterans in America</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    :root {
+      --bg: #0b1220;
+      --bg-alt: #0f172a;
+      --card: #111827;
+      --accent: #38bdf8;
+      --accent-soft: rgba(56, 189, 248, 0.15);
+      --text: #e5e7eb;
+      --muted: #9ca3af;
+      --danger: #f97373;
+      --radius-xl: 18px;
+      --shadow-soft: 0 22px 45px rgba(15, 23, 42, 0.55);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: radial-gradient(circle at top, #1f2937 0, #020617 55%, #000 100%);
+      color: var(--text);
+      line-height: 1.6;
+      scroll-behavior: smooth;
+    }
+
+    a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    .page {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 1.5rem 1.25rem 3.5rem;
+    }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      backdrop-filter: blur(16px);
+      background: linear-gradient(
+        to bottom,
+        rgba(2, 6, 23, 0.92),
+        rgba(2, 6, 23, 0.8),
+        transparent
+      );
+    }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.8rem 0 0.2rem;
+    }
+
+    .logo {
+      font-size: 1rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--accent);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 1rem;
+      font-size: 0.9rem;
+    }
+
+    .nav-links a {
+      padding: 0.35rem 0.7rem;
+      border-radius: 999px;
+      color: var(--muted);
+      border: 1px solid transparent;
+      transition: all 0.18s ease-out;
+    }
+
+    .nav-links a:hover {
+      color: var(--text);
+      border-color: rgba(148, 163, 184, 0.4);
+      background: rgba(15, 23, 42, 0.92);
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: minmax(0, 1.5fr) minmax(0, 1.1fr);
+      gap: 2.2rem;
+      padding: 2.5rem 0 2rem;
+      align-items: center;
+    }
+
+    .hero-title {
+      font-size: clamp(2.2rem, 3vw + 1.5rem, 3rem);
+      font-weight: 800;
+      letter-spacing: -0.04em;
+      margin-bottom: 0.9rem;
+    }
+
+    .hero-highlight {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.25rem 0.65rem;
+      border-radius: 999px;
+      font-size: 0.8rem;
+      border: 1px solid rgba(148, 163, 184, 0.35);
+      color: var(--muted);
+      margin-bottom: 0.7rem;
+    }
+
+    .hero-highlight span {
+      background: var(--accent-soft);
+      color: var(--accent);
+      border-radius: 999px;
+      padding: 0.15rem 0.55rem;
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .hero-subtitle {
+      font-size: 1rem;
+      color: var(--muted);
+      max-width: 34rem;
+      margin-bottom: 1.4rem;
+    }
+
+    .hero-cta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      align-items: center;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0.7rem 1.2rem;
+      border-radius: 999px;
+      border: 1px solid transparent;
+      font-size: 0.9rem;
+      font-weight: 500;
+      cursor: pointer;
+      background: transparent;
+      color: var(--text);
+      transition: all 0.18s ease-out;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #0ea5e9, #22c55e);
+      color: #0b1120;
+      box-shadow: 0 18px 35px rgba(34, 197, 94, 0.35);
+    }
+
+    .btn-primary:hover {
+      filter: brightness(1.05);
+      box-shadow: 0 24px 40px rgba(34, 197, 94, 0.4);
+      transform: translateY(-1px);
+    }
+
+    .btn-outline {
+      border-color: rgba(148, 163, 184, 0.5);
+      background: rgba(15, 23, 42, 0.9);
+      color: var(--muted);
+    }
+
+    .btn-outline:hover {
+      border-color: rgba(148, 163, 184, 0.8);
+      color: var(--text);
+      background: rgba(15, 23, 42, 1);
+    }
+
+    .hero-meta {
+      font-size: 0.8rem;
+      color: var(--muted);
+    }
+
+    .hero-meta strong {
+      color: var(--accent);
+      font-weight: 600;
+    }
+
+    .hero-card {
+      background: radial-gradient(circle at top left, #1e293b 0, #020617 55%);
+      border-radius: 22px;
+      padding: 1.4rem 1.5rem 1.3rem;
+      border: 1px solid rgba(148, 163, 184, 0.35);
+      box-shadow: var(--shadow-soft);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-card::before {
+      content: "";
+      position: absolute;
+      inset: -35%;
+      opacity: 0.35;
+      background: radial-gradient(circle at top, rgba(56, 189, 248, 0.35), transparent 60%);
+      pointer-events: none;
+    }
+
+    .hero-card-inner {
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero-card-label {
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      color: var(--muted);
+      margin-bottom: 0.75rem;
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 0.9rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .stat-pill {
+      padding: 0.7rem 0.8rem;
+      border-radius: 16px;
+      background: rgba(15, 23, 42, 0.9);
+      border: 1px solid rgba(148, 163, 184, 0.45);
+    }
+
+    .stat-pill h3 {
+      font-size: 1.2rem;
+      margin-bottom: 0.1rem;
+    }
+
+    .stat-pill p {
+      font-size: 0.8rem;
+      color: var(--muted);
+    }
+
+    .hero-note {
+      font-size: 0.78rem;
+      color: var(--muted);
+      margin-top: 0.5rem;
+    }
+
+    .tag-danger {
+      color: var(--danger);
+      font-weight: 600;
+    }
+
+    main {
+      margin-top: 0.5rem;
+    }
+
+    section {
+      padding: 1.7rem 0;
+      border-top: 1px solid rgba(31, 41, 55, 0.85);
+    }
+
+    .section-header {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 0.5rem;
+      margin-bottom: 1.3rem;
+    }
+
+    .section-header h2 {
+      font-size: 1.4rem;
+      letter-spacing: -0.03em;
+    }
+
+    .section-header p {
+      font-size: 0.85rem;
+      color: var(--muted);
+      max-width: 30rem;
+    }
+
+    .two-column {
+      display: grid;
+      grid-template-columns: minmax(0, 1.25fr) minmax(0, 1.1fr);
+      gap: 1.75rem;
+    }
+
+    .card {
+      background: radial-gradient(circle at top left, #020617 0, #020617 45%, #020617 100%);
+      border-radius: var(--radius-xl);
+      padding: 1.2rem 1.2rem 1.1rem;
+      border: 1px solid rgba(30, 64, 175, 0.7);
+      box-shadow: 0 18px 35px rgba(15, 23, 42, 0.8);
+    }
+
+    .card-soft {
+      border-color: rgba(148, 163, 184, 0.4);
+      box-shadow: 0 18px 35px rgba(15, 23, 42, 0.7);
+      background: rgba(15, 23, 42, 0.95);
+    }
+
+    .card h3 {
+      font-size: 1rem;
+      margin-bottom: 0.4rem;
+    }
+
+    .pill-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .pill {
+      padding: 0.1rem 0.6rem;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.4);
+      font-size: 0.7rem;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+    }
+
+    .card p {
+      font-size: 0.9rem;
+      color: var(--muted);
+    }
+
+    .card ul {
+      margin-top: 0.35rem;
+      padding-left: 1.1rem;
+      font-size: 0.88rem;
+      color: var(--muted);
+    }
+
+    .card ul li {
+      margin-bottom: 0.2rem;
+    }
+
+    .demographics-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 0.9rem;
+    }
+
+    .demographic-item {
+      background: rgba(15, 23, 42, 0.95);
+      border-radius: 14px;
+      padding: 0.85rem 0.9rem;
+      border: 1px solid rgba(148, 163, 184, 0.5);
+    }
+
+    .demographic-item h3 {
+      font-size: 1rem;
+      margin-bottom: 0.1rem;
+    }
+
+    .demographic-item p {
+      font-size: 0.8rem;
+      color: var(--muted);
+    }
+
+    .demographic-note {
+      margin-top: 0.6rem;
+      font-size: 0.82rem;
+      color: var(--muted);
+    }
+
+    .list-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 1.2rem;
+      font-size: 0.9rem;
+      color: var(--muted);
+    }
+
+    .list-grid ul {
+      padding-left: 1.1rem;
+    }
+
+    .list-grid li {
+      margin-bottom: 0.3rem;
+    }
+
+    .resource-columns {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 1.1rem;
+      font-size: 0.86rem;
+    }
+
+    .resource-columns ul {
+      padding-left: 1rem;
+      margin-top: 0.25rem;
+    }
+
+    .resource-columns li {
+      margin-bottom: 0.2rem;
+    }
+
+    .resource-columns strong {
+      font-size: 0.88rem;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.25rem;
+      padding: 0.15rem 0.55rem;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.4);
+      font-size: 0.72rem;
+      color: var(--muted);
+      margin-bottom: 0.4rem;
+    }
+
+    .badge-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 999px;
+      background: var(--accent);
+    }
+
+    footer {
+      border-top: 1px solid rgba(31, 41, 55, 0.85);
+      margin-top: 1.6rem;
+      padding-top: 1rem;
+      font-size: 0.8rem;
+      color: var(--muted);
+      text-align: center;
+    }
+
+    @media (max-width: 880px) {
+      .hero {
+        grid-template-columns: minmax(0, 1fr);
+      }
+      .hero-card {
+        order: -1;
+      }
+      .two-column {
+        grid-template-columns: minmax(0, 1fr);
+      }
+      .demographics-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+      .resource-columns {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 640px) {
+      .nav {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.4rem;
+      }
+
+      .nav-links {
+        flex-wrap: wrap;
+        justify-content: flex-start;
+      }
+
+      .demographics-grid {
+        grid-template-columns: minmax(0, 1fr);
+      }
+
+      .resource-columns {
+        grid-template-columns: minmax(0, 1fr);
+      }
+
+      .hero {
+        padding-top: 1.6rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="page">
+      <nav class="nav">
+        <div class="logo">Veterans Housing Justice</div>
+        <div class="nav-links">
+          <a href="#why-care">Why It Matters</a>
+          <a href="#who-affected">Who Is Affected</a>
+          <a href="#solutions">What’s Being Done</a>
+          <a href="#how-help">Take Action</a>
+          <a href="#learn-more">Learn More</a>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <div class="page">
+    <section class="hero">
+      <div>
+        <div class="hero-highlight">
+          <span>Call to Action</span>
+          Ending veteran homelessness is a test of our values.
+        </div>
+        <h1 class="hero-title">Homelessness Among Veterans in America</h1>
+        <p class="hero-subtitle">
+          Veterans risked their lives in service. Yet thousands sleep on sidewalks, in shelters,
+          or in cars. This site explains why this injustice matters, what’s being done, and how
+          you can help.
+        </p>
+        <div class="hero-cta">
+          <a href="#why-care" class="btn btn-primary">Start with the facts</a>
+          <a href="#how-help" class="btn btn-outline">Ways to help today</a>
+          <div class="hero-meta">
+            <strong>Goal:</strong> Inform, mobilize, and connect people to effective solutions.
+          </div>
+        </div>
+      </div>
+
+      <aside class="hero-card" aria-label="Key statistics about homeless veterans">
+        <div class="hero-card-inner">
+          <div class="hero-card-label">Snapshot: Homeless Veterans</div>
+          <div class="stats-grid">
+            <div class="stat-pill">
+              <h3>5.3%</h3>
+              <p>of the homeless adult population are veterans.</p>
+            </div>
+            <div class="stat-pill">
+              <h3>20%</h3>
+              <p>of the male homeless population are veterans.</p>
+            </div>
+            <div class="stat-pill">
+              <h3>51%</h3>
+              <p>have disabilities; 50% have serious mental illness.</p>
+            </div>
+            <div class="stat-pill">
+              <h3>70%</h3>
+              <p>struggle with substance use issues.</p>
+            </div>
+          </div>
+          <p class="hero-note">
+            <span class="tag-danger">This isn’t inevitable.</span> Proven solutions like Housing
+            First, supportive services, and community outreach are reducing veteran homelessness—
+            but only if we invest and get involved.
+          </p>
+        </div>
+      </aside>
+    </section>
+
+    <main>
+      <!-- WHY CARE -->
+      <section id="why-care">
+        <div class="section-header">
+          <h2>Why Should We Care About Veteran Homelessness?</h2>
+          <p>
+            This is more than a housing problem. It’s about human dignity, public health,
+            economic waste, and how a nation honors its promises to those who served.
+          </p>
+        </div>
+
+        <div class="two-column">
+          <div class="card">
+            <h3>Ethical &amp; Moral Responsibilities</h3>
+            <div class="pill-row">
+              <span class="pill">Debt of gratitude</span>
+              <span class="pill">Human dignity</span>
+            </div>
+            <p>
+              Veterans put their lives on the line and sacrificed time, health, and family
+              stability in service to the country. Allowing them to sleep on the streets
+              violates a basic moral obligation to those who served.
+            </p>
+            <p>
+              Homelessness strips people of shelter, safety, food, healthcare, and stability.
+              These are fundamental human needs. When veterans cannot meet them, their basic
+              rights and dignity are being denied.
+            </p>
+          </div>
+
+          <div class="card card-soft">
+            <h3>National Security &amp; Public Trust</h3>
+            <div class="pill-row">
+              <span class="pill">Stability</span>
+              <span class="pill">Public safety</span>
+              <span class="pill">Credibility</span>
+            </div>
+            <p>
+              Veterans living on the streets face higher risks of illness, injury, and mental
+              health crises. These crises can spill over into communities if left unaddressed.
+              Housing and support services protect both veterans and the public.
+            </p>
+            <p>
+              How a country treats its veterans sends a powerful message to current service
+              members, allies, and the world. Failing those who served undermines trust in
+              public institutions and national values.
+            </p>
+          </div>
+        </div>
+
+        <div style="height: 1rem;"></div>
+
+        <div class="two-column">
+          <div class="card card-soft">
+            <h3>Economic &amp; Societal Efficiency</h3>
+            <div class="pill-row">
+              <span class="pill">Cost of inaction</span>
+              <span class="pill">Workforce potential</span>
+            </div>
+            <p>
+              Chronic homelessness is expensive. It leads to frequent use of emergency rooms,
+              crisis services, shelters, and policing—costs that fall on taxpayers and strained
+              public systems.
+            </p>
+            <p>
+              Veterans possess valuable skills in leadership, teamwork, and technical fields.
+              With stable housing, healthcare, and job support, many can re-enter the workforce
+              and strengthen the economy rather than being pushed to the margins.
+            </p>
+          </div>
+
+          <div class="card">
+            <h3>Public Health &amp; Community Strength</h3>
+            <div class="pill-row">
+              <span class="pill">Mental health</span>
+              <span class="pill">Substance use</span>
+              <span class="pill">Social cohesion</span>
+            </div>
+            <p>
+              Homelessness is closely tied to untreated mental health conditions and substance
+              use disorders. Providing stable housing and accessible care can reduce crises,
+              emergency visits, and preventable suffering like hypothermia or malnutrition.
+            </p>
+            <p>
+              When communities rally to support veterans—through housing initiatives, outreach,
+              and advocacy—it builds trust, compassion, and civic pride. Showing up for those
+              who served models the kind of society we want to be.
+            </p>
+          </div>
+        </div>
+
+        <div style="height: 1rem;"></div>
+
+        <div class="card card-soft">
+          <h3>Policy &amp; Practical Considerations</h3>
+          <div class="pill-row">
+            <span class="pill">Proven solutions</span>
+            <span class="pill">Targeted investments</span>
+            <span class="pill">Housing first</span>
+          </div>
+          <p>
+            Veteran homelessness is solvable. Programs like rapid rehousing, transitional
+            housing, permanent supportive housing, case management, healthcare access, and job
+            training have already shown success in communities across the country.
+          </p>
+          <p>
+            Smart, targeted investments—especially Housing First, mental health and substance use
+            treatment, and employment assistance—often cost less in the long run than doing
+            nothing. They move veterans from crisis and survival to stability and contribution.
+          </p>
+        </div>
+      </section>
+
+      <!-- WHO IS AFFECTED -->
+      <section id="who-affected">
+        <div class="section-header">
+          <h2>Who Is Affected?</h2>
+          <p>
+            Veteran homelessness is shaped by disability, age, race, mental health, and where
+            people live. Understanding who is most affected helps target solutions where they’re
+            needed most.
+          </p>
+        </div>
+
+        <div class="demographics-grid">
+          <div class="demographic-item">
+            <h3>Share of the Homeless Population</h3>
+            <p>
+              Veterans make up <strong>5.3%</strong> of all homeless adults and
+              <strong>20%</strong> of the male homeless population.
+            </p>
+          </div>
+          <div class="demographic-item">
+            <h3>Where Veterans Live</h3>
+            <p>
+              <strong>68%</strong> of homeless veterans live in principal cities, while
+              <strong>32%</strong> live in suburban or rural areas—showing this is both an urban
+              and rural issue.
+            </p>
+          </div>
+          <div class="demographic-item">
+            <h3>Disability &amp; Health</h3>
+            <p>
+              <strong>51%</strong> of individual homeless veterans have disabilities, about
+              <strong>50%</strong> have serious mental illness, and <strong>70%</strong> struggle
+              with substance abuse problems.
+            </p>
+          </div>
+          <div class="demographic-item">
+            <h3>Race &amp; Gender</h3>
+            <p>
+              Around <strong>51%</strong> of homeless veterans are white males, compared to
+              <strong>38%</strong> among non-veteran homeless adults. Race, gender, and service
+              experiences all shape risk.
+            </p>
+          </div>
+          <div class="demographic-item">
+            <h3>Age</h3>
+            <p>
+              About <strong>50%</strong> of homeless veterans are age 51 or older, compared to
+              <strong>19%</strong> of non-veterans—meaning many are aging into homelessness.
+            </p>
+          </div>
+        </div>
+        <p class="demographic-note">
+          These numbers represent people who served their country. Targeted, age- and
+          disability-informed services are essential to meet their needs.
+        </p>
+      </section>
+
+      <!-- WHAT'S BEING DONE -->
+      <section id="solutions">
+        <div class="section-header">
+          <h2>What Is Being Done About This Issue?</h2>
+          <p>
+            Federal agencies, nonprofits, and community-based “veterans helping veterans” programs
+            are working together to prevent and end veteran homelessness—often with promising
+            results.
+          </p>
+        </div>
+
+        <div class="two-column">
+          <div class="card">
+            <h3>Meeting the Full Range of Needs</h3>
+            <div class="pill-row">
+              <span class="pill">Housing</span>
+              <span class="pill">Health</span>
+              <span class="pill">Employment</span>
+            </div>
+            <p>
+              Homeless veterans need more than a bed for the night. Effective responses provide:
+            </p>
+            <ul>
+              <li>Secure housing and regular access to nutritional meals.</li>
+              <li>
+                Physical healthcare, mental health counseling, and substance use treatment and
+                aftercare.
+              </li>
+              <li>
+                Personal development, empowerment, and community—often through peer support and
+                veteran-led spaces.
+              </li>
+              <li>
+                Job assessment, training, and placement assistance so veterans can obtain and
+                sustain gainful employment.
+              </li>
+            </ul>
+            <p>
+              The National Coalition for Homeless Veterans (NCHV) emphasizes that employment and
+              income are crucial. Without them, veterans struggle to maintain safe, permanent
+              housing.
+            </p>
+          </div>
+
+          <div class="card card-soft">
+            <h3>Housing &amp; Financial Assistance</h3>
+            <div class="pill-row">
+              <span class="pill">HUD–VASH</span>
+              <span class="pill">VA grants</span>
+              <span class="pill">Prevention</span>
+            </div>
+            <ul>
+              <li>
+                <strong>HUD–VASH Program</strong>: A partnership between the U.S. Department of
+                Housing and Urban Development (HUD) and the VA that provides permanent housing
+                vouchers to homeless veterans and their families, paired with VA case management
+                and supportive services.
+              </li>
+              <li>
+                <strong>VA Grants</strong>: The VA funds organizations nationwide to help veterans
+                access housing, healthcare, financial planning, and other supports.
+              </li>
+              <li>
+                <strong>Supportive Services for Veteran Families (SSVF)</strong>: A preventative
+                program that helps veterans at risk of homelessness stay housed or move quickly
+                into stable housing.
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div style="height: 1rem;"></div>
+
+        <div class="two-column">
+          <div class="card card-soft">
+            <h3>Outreach &amp; Community-Based Programs</h3>
+            <div class="pill-row">
+              <span class="pill">Outreach</span>
+              <span class="pill">Veterans helping veterans</span>
+            </div>
+            <ul>
+              <li>
+                <strong>Health Care for Homeless Veterans</strong> and the
+                <strong>National Call Center for Homeless Veterans</strong> serve as front doors
+                to VA homeless programs and the broader VA healthcare system.
+              </li>
+              <li>
+                New nationwide initiatives like <strong>“Getting Veterans Off the Street”</strong>
+                use targeted outreach to connect unsheltered veterans with housing, healthcare,
+                and case management.
+              </li>
+              <li>
+                Community-based, nonprofit, “veterans helping veterans” models are especially
+                effective. Transitional housing that offers structure, sobriety, and camaraderie
+                with fellow veterans helps people regain control of their lives.
+              </li>
+            </ul>
+            <p>
+              Because government funding is limited and VA services reach less than half of all
+              homeless veterans, local community groups play a critical role in filling the gaps.
+            </p>
+          </div>
+
+          <div class="card">
+            <h3>Strategy: Housing First &amp; Long-Term Stability</h3>
+            <div class="pill-row">
+              <span class="pill">Housing first</span>
+              <span class="pill">Rapid rehousing</span>
+              <span class="pill">Supportive housing</span>
+            </div>
+            <p>
+              Many communities now use a <strong>Housing First</strong> approach: provide
+              permanent, safe housing as the starting point, then layer on services like mental
+              health care, substance use treatment, and job support.
+            </p>
+            <p>
+              Rapid rehousing, permanent supportive housing, and blended models of case management
+              and peer support have shown that, with the right investment, veteran homelessness
+              can be dramatically reduced—often faster and more cost-effectively than people
+              expect.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- HOW TO HELP -->
+      <section id="how-help">
+        <div class="section-header">
+          <h2>How You Can Help</h2>
+          <p>
+            You don’t need to be an expert to make a difference. Small, consistent actions—local
+            volunteering, donations, and advocacy—can help move veterans from homelessness to
+            stability.
+          </p>
+        </div>
+
+        <div class="two-column">
+          <div class="card card-soft">
+            <h3>Individual Actions</h3>
+            <div class="pill-row">
+              <span class="pill">Volunteer</span>
+              <span class="pill">Donate</span>
+              <span class="pill">Support</span>
+            </div>
+            <ul>
+              <li>
+                <strong>Support veterans’ housing and healthcare initiatives.</strong> Look for
+                local veteran shelters, transitional housing, and Housing First projects.
+              </li>
+              <li>
+                <strong>Volunteer</strong> with veteran service organizations, VA hospitals,
+                community outreach teams, or housing and job programs.
+              </li>
+              <li>
+                <strong>Donate time or skills</strong>—legal aid, job coaching, résumé help,
+                mental health services, or healthcare can be life-changing.
+              </li>
+              <li>
+                <strong>Give financially</strong>, even in small amounts, to trusted nonprofits
+                that focus on veteran homelessness and housing.
+              </li>
+            </ul>
+          </div>
+
+          <div class="card">
+            <h3>Civic &amp; Policy Actions</h3>
+            <div class="pill-row">
+              <span class="pill">Advocacy</span>
+              <span class="pill">Policy</span>
+              <span class="pill">Coalitions</span>
+            </div>
+            <ul>
+              <li>
+                <strong>Advocate for funding and policies</strong> that address veteran
+                homelessness at the local, state, and federal levels—especially Housing First,
+                mental health services, and job training.
+              </li>
+              <li>
+                <strong>Vote</strong> with veterans and housing policy in mind. Contact
+                representatives about veteran housing programs and oversight.
+              </li>
+              <li>
+                <strong>Attend town halls or city council meetings</strong> to support
+                veteran-specific housing and outreach programs.
+              </li>
+              <li>
+                <strong>Join or form local coalitions</strong> that bring together VA offices,
+                housing authorities, nonprofits, faith communities, and veterans’ groups to
+                coordinate services.
+              </li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- LEARN MORE -->
+      <section id="learn-more">
+        <div class="section-header">
+          <h2>Learn More &amp; Go Deeper</h2>
+          <p>
+            Use these resources to explore data, programs, and policies—and to find funding
+            opportunities, local organizations, and up-to-date research on veteran homelessness.
+          </p>
+        </div>
+
+        <div class="resource-columns">
+          <div>
+            <div class="badge">
+              <span class="badge-dot"></span>
+              General Information
+            </div>
+            <ul>
+              <li>
+                <strong>VA – Homeless Veterans</strong><br />
+                Overview, VA programs, statistics, and resources.<br />
+                <a href="https://www.va.gov/homeless/" target="_blank" rel="noopener">
+                  va.gov/homeless
+                </a>
+              </li>
+              <li>
+                <strong>National Coalition for Homeless Veterans (NCHV)</strong><br />
+                Policy briefs, advocacy tools, and program listings.<br />
+                <a href="https://www.nchv.org/" target="_blank" rel="noopener">
+                  nchv.org
+                </a>
+              </li>
+              <li>
+                <strong>U.S. Interagency Council on Homelessness (USICH)</strong><br />
+                National strategic plan, policy recommendations, data dashboards.<br />
+                <a href="https://www.usich.gov/" target="_blank" rel="noopener">
+                  usich.gov
+                </a>
+              </li>
+            </ul>
+          </div>
+
+          <div>
+            <div class="badge">
+              <span class="badge-dot"></span>
+              Data &amp; Best Practices
+            </div>
+            <ul>
+              <li>
+                <strong>The Urban Institute – Homelessness &amp; Housing</strong><br />
+                Research reports and cost analyses.<br />
+                <a href="https://www.urban.org/topic/homelessness-and-housing" target="_blank" rel="noopener">
+                  urban.org – Homelessness
+                </a>
+              </li>
+              <li>
+                <strong>National Alliance to End Homelessness</strong><br />
+                Dashboards, state profiles, policy summaries, toolkits.<br />
+                <a href="https://endhomelessness.org/" target="_blank" rel="noopener">
+                  endhomelessness.org
+                </a>
+              </li>
+              <li>
+                <strong>RAND – Veterans &amp; Homelessness</strong><br />
+                Research and policy briefs.<br />
+                <a href="https://www.rand.org/topics/homelessness.html" target="_blank" rel="noopener">
+                  rand.org/topics/homelessness
+                </a>
+              </li>
+              <li>
+                <strong>Google Scholar</strong> – search “veterans homelessness interventions”
+                or “Housing First veterans” for academic research.
+              </li>
+            </ul>
+          </div>
+
+          <div>
+            <div class="badge">
+              <span class="badge-dot"></span>
+              Programs, Grants &amp; Policy
+            </div>
+            <ul>
+              <li>
+                <strong>USICH – Housing First</strong><br />
+                Overview of Housing First strategies.<br />
+                <a href="https://www.usich.gov/tools-for-action/housing-first/" target="_blank" rel="noopener">
+                  usich.gov/tools-for-action/housing-first
+                </a>
+              </li>
+              <li>
+                <strong>VA Housing Assistance &amp; Community Programs</strong><br />
+                <a href="https://www.va.gov/housing/" target="_blank" rel="noopener">
+                  va.gov/housing
+                </a>
+              </li>
+              <li>
+                <strong>Grants.gov</strong> – search “veteran homelessness”.<br />
+                <a href="https://www.grants.gov/" target="_blank" rel="noopener">
+                  grants.gov
+                </a>
+              </li>
+              <li>
+                <strong>National Conference of State Legislatures – Veteran Homelessness</strong><br />
+                <a href="https://www.ncsl.org/research/human-services/veteran-homelessness.aspx" target="_blank" rel="noopener">
+                  ncsl.org – Veteran Homelessness
+                </a>
+              </li>
+              <li>
+                <strong>USICH Cross-Agency Resources</strong><br />
+                Program details and funding guidance.<br />
+                <a href="https://www.usich.gov/resources/uploads/agency_resources/" target="_blank" rel="noopener">
+                  usich.gov/resources/uploads/agency_resources
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div style="height: 1.2rem;"></div>
+
+        <div class="card card-soft">
+          <h3>Quick Starter Reading List</h3>
+          <div class="list-grid">
+            <div>
+              <ul>
+                <li>
+                  <strong>Housing First for Veterans</strong> – plain-language briefs (often from
+                  USICH or NCHV) explaining why Housing First works for veterans.
+                </li>
+                <li>
+                  <strong>The impact of permanent supportive housing on veteran homelessness</strong>
+                  – case studies showing long-term outcomes.
+                </li>
+              </ul>
+            </div>
+            <div>
+              <ul>
+                <li>
+                  <strong>Cost analyses</strong> comparing emergency services vs. stable housing
+                  for homeless veterans (Urban Institute, VA, RAND, and others).
+                </li>
+                <li>
+                  Local and national news coverage – search for “veteran homelessness” or
+                  “Housing First veterans” in outlets like ProPublica, The Guardian, New York
+                  Times, or Washington Post.
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      Built to inform, honor, and mobilize support for veterans experiencing homelessness.<br />
+      Share this page, start a conversation, and take one concrete action this week.
+    </footer>
+  </div>
+</body>
+</html>
